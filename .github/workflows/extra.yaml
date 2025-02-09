@@ -1,14 +1,15 @@
 name: Manual actions
 on: 
   workflow_dispatch
+
 jobs:
   build:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04
     steps:
     - name: Checkout
-      uses: actions/checkout@v3
+      uses: actions/checkout@v4
     - name: Install Dependencies
-      run: ./deploy/dependencies/install_dependencies_ubuntu.sh
+      run: ./deploy/dependencies/install_dependencies_ubuntu_24_04.sh
       shell: bash
     - name: Build
       run: ./tests/test_kernel_build.sh
@@ -17,9 +18,9 @@ jobs:
       run: ./tests/test_kernel_install.sh
       shell: bash
   test-ci-env:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04
     steps:
-    - uses: actions/checkout@v2
+    - uses: actions/checkout@v4
     - name: Setup upterm session
       uses: lhotari/action-upterm@v1
       with:

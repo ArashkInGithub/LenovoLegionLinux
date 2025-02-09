@@ -1,3 +1,6 @@
+# Vscode
+.vscode/
+
 # Python
 __pycache__/
 
@@ -62,3 +65,8 @@ dkms.conf
 
 build/
 dist/
+
+# Legiond
+extra/service/legiond/legiond
+extra/service/legiond/legiond-ctl
+extra/service/legiond/.cache/clangd

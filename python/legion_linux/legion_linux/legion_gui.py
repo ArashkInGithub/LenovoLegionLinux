@@ -9,11 +9,12 @@ import logging
 import random
 import time
 from typing import List, Optional
-from PyQt5 import QtGui, QtCore
-from PyQt5.QtCore import Qt, QTimer, pyqtSlot, QRunnable, QThreadPool
-from PyQt5.QtWidgets import QApplication, QMainWindow, QTabWidget, QWidget, QLabel, \
+from PyQt6 import QtGui, QtCore
+from PyQt6.QtCore import Qt, QTimer, pyqtSlot, QRunnable, QThreadPool
+from PyQt6.QtGui import QAction, QGuiApplication
+from PyQt6.QtWidgets import QApplication, QMainWindow, QTabWidget, QWidget, QLabel, \
     QVBoxLayout, QGridLayout, QLineEdit, QPushButton, QComboBox, QGroupBox, \
-    QCheckBox, QSystemTrayIcon, QMenu, QAction, QMessageBox, QSpinBox, QTextBrowser, QHBoxLayout
+    QCheckBox, QSystemTrayIcon, QMenu, QScrollArea, QMessageBox, QSpinBox, QTextBrowser, QHBoxLayout
 # Make it possible to run without installation
 # pylint: disable=# pylint: disable=wrong-import-position
 sys.path.insert(0, os.path.dirname(__file__) + "/..")
@@ -927,7 +928,7 @@ class LegionController:
 class FanCurveEntryView():
     def __init__(self, point_id, layout):
         self.point_id_label = QLabel(f'{point_id}')
-        self.point_id_label.setAlignment(Qt.AlignCenter)
+        self.point_id_label.setAlignment(Qt.AlignmentFlag.AlignCenter)
         self.fan_speed1_edit = QLineEdit()
         self.fan_speed2_edit = QLineEdit()
         self.cpu_lower_temp_edit = QLineEdit()
@@ -976,8 +977,8 @@ class FanCurveEntryView():
         self.decel_edit.setDisabled(value)
 
     def get(self) -> FanCurveEntry:
-        fan1_speed = int(self.fan_speed1_edit.text())
-        fan2_speed = int(self.fan_speed2_edit.text())
+        fan1_speed = float(self.fan_speed1_edit.text())
+        fan2_speed = float(self.fan_speed2_edit.text())
         cpu_lower_temp = int(self.cpu_lower_temp_edit.text())
         cpu_upper_temp = int(self.cpu_upper_temp_edit.text())
         gpu_lower_temp = int(self.gpu_lower_temp_edit.text())
@@ -1062,9 +1063,9 @@ class FanCurveTab(QWidget):
         self.layout.addWidget(self.ic_upper_temp_label, 8, 0)
         self.layout.addWidget(self.accel_label, 9, 0)
         self.layout.addWidget(self.decel_label, 10, 0)
-        self.layout.addWidget(self.minfancurve_check, 11, 0)
-        self.layout.addWidget(self.lockfancontroller_check, 12, 0)
-        self.layout.addWidget(self.maximumfanspeed_check, 13, 0)
+        self.layout.addWidget(self.minfancurve_check, 11, 0, 1, 10)
+        self.layout.addWidget(self.lockfancontroller_check, 12, 0, 1, 10)
+        self.layout.addWidget(self.maximumfanspeed_check, 13, 0, 1, 10)
         for i in range(1, 11):
             self.create_fancurve_entry_view(self.layout, i)
         self.fancurve_group.setLayout(self.layout)
@@ -1109,6 +1110,7 @@ class FanCurveTab(QWidget):
             "the driver is not loaded properly or hwmon directory not found.\nIf features are marked "
             "red, an unexpected error has occured while accessing the hardware and you should notify the maintainer.")
         self.note_label2.setStyleSheet("color: red;")
+        self.note_label2.setWordWrap(True)
         self.main_layout.addWidget(self.note_label2, 3)
 
         self.setLayout(self.main_layout)
@@ -1284,6 +1286,7 @@ class OtherOptionsTab(QWidget):
             "It is recommended to customize the power settings only in custom mode. Although "
             "it is possible to change them in any mode.")
         self.power_note_label.setStyleSheet("color: red;")
+        self.power_note_label.setWordWrap(True)
         self.power_all_layout.addWidget(self.power_note_label)
 
 
@@ -1342,6 +1345,13 @@ class AutomationTab(QWidget):
             'These are Experimental Features.\n To apply and save the Settings Press "Save" or "Save and Quit"')
         self.options_layout.addWidget(self.note_label, 4)
 
+        self.note_openrc_label = QLabel(
+            "OpenRC service are available but need to be enable manually!\n"
+            "They are install automatically on gentoo base distro!\n"
+            "To get the files go to extra/service in the repo.\n"
+        )
+        self.options_layout.addWidget(self.note_openrc_label, 4)
+
         self.note_label2 = QLabel("")
 
         self.main_layout = QVBoxLayout()
@@ -1376,7 +1386,7 @@ class AboutTab(QWidget):
         about_label = QLabel(
             'Help by giving a star to the github repo <a href="https://github.com/johnfanv2/LenovoLegionLinux" >https://github.com/johnfanv2/LenovoLegionLinux</a>')
         about_label.setOpenExternalLinks(True)
-        about_label.setAlignment(Qt.AlignCenter)
+        about_label.setAlignment(Qt.AlignmentFlag.AlignCenter)
         layout = QVBoxLayout()
         layout.addWidget(about_label)
         self.setLayout(layout)
@@ -1390,18 +1400,19 @@ class Tabs(QTabWidget):
         self.controller.tabs = self
 
         # setup tabs
-        self.fan_curve_tab = FanCurveTab(controller)
-        self.other_options_tab = OtherOptionsTab(controller)
-        self.automation_tab = AutomationTab(controller)
-        self.log_tab = LogTab(controller)
-        self.about_tab = AboutTab(controller)
+        self.tabs = (
+            ("Fan Curve", FanCurveTab(controller)),
+            ("Other Options", OtherOptionsTab(controller)),
+            ("Automation", AutomationTab(controller)),
+            ("Log", LogTab(controller)),
+            ("About", AboutTab(controller))
+        )
 
-        # tabs
-        self.addTab(self.fan_curve_tab, "Fan Curve")
-        self.addTab(self.other_options_tab, "Other Options")
-        self.addTab(self.automation_tab, "Automation")
-        self.addTab(self.log_tab, "Log")
-        self.addTab(self.about_tab, "About")
+        for tab_name, tab in self.tabs:
+            area = QScrollArea()
+            area.setWidget(tab)
+            area.setWidgetResizable(True)
+            self.addTab(area, tab_name)
 
 
 class QClickLabel(QLabel):
@@ -1422,6 +1433,9 @@ class MainWindow(QMainWindow):
         # setup controller
         self.controller = controller
         self.controller.main_window = self
+
+        # Set a minium width to the window
+        self.setMinimumSize(1250, 725)
 
         # window layout
         self.setWindowTitle("LenovoLegionLinux")
@@ -1453,12 +1467,14 @@ class MainWindow(QMainWindow):
         # main layout
         self.main_layout = QVBoxLayout()
         self.main_layout.addWidget(self.header_msg)
-        self.main_layout.addWidget(self.tabs)
+        self.main_layout.addWidget(self.tabs, 1)
         self.main_layout.addLayout(self.button_layout)
 
         # use main layout for main window
         self.main_widget = QWidget()
         self.main_widget.setLayout(self.main_layout)
+
+        # set main widget
         self.setCentralWidget(self.main_widget)
 
         # display of root warning message
@@ -1472,7 +1488,7 @@ class MainWindow(QMainWindow):
     def set_header_msg(self, text: str):
         self.header_msg.setText(text)
         self.header_msg.setOpenExternalLinks(True)
-        self.header_msg.setAlignment(Qt.AlignCenter)
+        self.header_msg.setAlignment(Qt.AlignmentFlag.AlignCenter)
 
     def set_random_header_msg(self):
         # pylint: disable=line-too-long
@@ -1511,10 +1527,10 @@ class MainWindow(QMainWindow):
         self.close_timer.start(milliseconds)
 
     def bring_to_foreground(self):
-        self.setWindowFlag(QtCore.Qt.Window)
-        self.setWindowFlags(self.windowFlags() & (~QtCore.Qt.Tool))
+        self.setWindowFlag(QtCore.Qt.WindowType.Window)
+        self.setWindowFlags(self.windowFlags() & (~QtCore.Qt.WindowType.Tool))
         self.setWindowState(self.windowState(
-        ) & ~QtCore.Qt.WindowMinimized | QtCore.Qt.WindowActive)
+        ) & ~QtCore.Qt.WindowState.WindowMinimized | QtCore.Qt.WindowState.WindowActive)
         self.activateWindow()
         self.show()
 
@@ -1523,7 +1539,7 @@ class MainWindow(QMainWindow):
             # do not hide to tray when running as root because
             # a program run as root cannot usually
             # show a tray icon
-            self.setWindowFlag(QtCore.Qt.Tool)
+            self.setWindowFlag(QtCore.Qt.WindowType.Tool)
             self.hide()
 
 
@@ -1647,6 +1663,10 @@ def get_icon_path(controller):
     return icon_path
 
 def main():
+    # Set the desktop file name
+    # This make the window icon appear on wayland
+    QGuiApplication.setDesktopFileName("legion_gui.desktop")
+
     app = QApplication(sys.argv)
 
     use_legion_cli_to_write = '--use_legion_cli_to_write' in sys.argv
@@ -1680,6 +1700,11 @@ def main():
     # Resources
     icon_path = get_icon_path(controller)
     icon = QtGui.QIcon(icon_path)
+    # Set tray icon to the window icon
+    # Can't be use since tray icon is a svg
+    # Only support png and ico
+    # (maybe if PyQT6 introduce svg support)
+    #QGuiApplication.setWindowIcon(icon)
 
     # Main Windows
     main_window = MainWindow(controller, icon)
@@ -1697,7 +1722,7 @@ def main():
     main_window.show()
 
     # Run
-    sys.exit(app.exec_())
+    sys.exit(app.exec())
 
 
 if __name__ == '__main__':

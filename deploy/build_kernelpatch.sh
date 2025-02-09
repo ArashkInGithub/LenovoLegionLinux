@@ -1,6 +1,6 @@
 #!/bin/bash
 set -ex
-KERNEL_VERSION="6.5"
+KERNEL_VERSION="6.10"
 KERNEL_VERSION_UNDERSCORE="${KERNEL_VERSION//./_}"
 DIR=$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")" &>/dev/null && pwd)
 REPODIR="${DIR}/.."
@@ -14,7 +14,6 @@ echo "DIR: ${DIR}"
 echo "REPODIR: ${REPODIR}"
 echo "BUILD_DIR: ${BUILD_DIR}"
 echo "TAG: ${TAG}"
-
 
 # Recreate build dir
 rm -rf "${BUILD_DIR}" || true

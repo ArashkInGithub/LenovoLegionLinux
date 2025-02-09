@@ -14,8 +14,8 @@
 [![Check Reddit](https://img.shields.io/static/v1?label=Reddit&message=LenovoLegion&color=green)](https://www.reddit.com/r/LenovoLegion/)
 [![More Reddit](https://img.shields.io/static/v1?label=Reddit&message=linuxhardware&color=blueviolet)](https://www.reddit.com/r/linuxhardware/)
 </br>
-[![Unbutu and Debian PPA](https://img.shields.io/badge/Ubuntu%2FDebian-LLL_PPA-orange)](https://github.com/johnfanv2/LenovoLegionLinux/tree/main/package_repo)
-[![Fedora Copr](https://img.shields.io/badge/Nobara%2FFedora-fedora_copr-blue)](https://copr.fedorainfracloud.org/coprs/mrduarte/LenovoLegionLinux/)
+[![Unbutu and Debian PPA](https://img.shields.io/badge/Ubuntu%2FDebian-Debian_Repo-red)](https://tracker.debian.org/pkg/lenovolegionlinux)
+[![Fedora Copr](https://img.shields.io/badge/Nobara%2FFedora-LenovoLegionLinux-blue)](https://copr.fedorainfracloud.org/coprs/mrduarte/LenovoLegionLinux/)
 [![AUR](https://img.shields.io/aur/version/lenovolegionlinux-git?label=AUR%20Package)](https://aur.archlinux.org/packages/lenovolegionlinux-git)
 [![AUR DKMS](https://img.shields.io/aur/version/lenovolegionlinux-dkms-git?label=AUR%20Package%20%28dkms%29)](https://aur.archlinux.org/packages/lenovolegionlinux-dkms-git)
 [![GURU Overlay](https://img.shields.io/badge/Gentoo_Overlay-GURU-blueviolet)](https://gitweb.gentoo.org/repo/proj/guru.git/)
@@ -23,7 +23,6 @@
 [![NixOS](https://img.shields.io/badge/NixOS--package-lenovo--legion-9cf)](https://search.nixos.org/packages?channel=unstable&from=0&size=50&sort=relevance&type=packages&query=lenovo-legion)
 </br>
 [![Nobara](https://img.shields.io/badge/Nobara_Linux-Kernel_Patched-green)](https://nobaraproject.org/)
-[![CachyOS](https://img.shields.io/badge/CachyOS_Linux-Kernel_Patched-green)](https://cachyos.org)
 [![PikaOS](https://img.shields.io/badge/PikaOS_Linux-Kernel_Patched-green)](https://pika-os.com/)
 ---
 
@@ -50,7 +49,6 @@ It allows you to control features like the fan curve, power mode, power limits, 
 
 :boom: **Starring shows that this is useful to me and the Linux community so hopefully a merge into the Kernel is possible.**
 
-:package: **Also package for Ubuntu and Fedora/RHEL avaiable [here](package_repo)**
 ## :rocket: Features
 
 <p align="center">
@@ -62,7 +60,7 @@ It allows you to control features like the fan curve, power mode, power limits, 
 - [X] Light on RAM and CPU and without telemetry
 - [X] Fully controllable using scripts or from the command-line
 - [X] Simple GUI replacement for Lenovo Vantage: Fan curve, FN Lock, Win Key, Touchpad Power, Camera Power, Battery Conservation, Rapid Charging, Charge output from always on USB, Display Overdrive, Y-Logo LED Light, IO-Port LED Light, Hybrid Mode (GSync), CPU and GPU Overclock:
-    - Switch battery conservation mode; keep battery at around 50% when on AC to prolong battery life (https://bugs.kde.org/show_bug.cgi?id=441057)
+    - Switch battery conservation mode; keep battery at 60% when on AC to prolong battery life (https://bugs.kde.org/show_bug.cgi?id=441057)
     - Toggle Fn lock; Use special function on F1-F12 keys without pressing the Fn key
     - Enable or disable touchpad
 - [X] Set a fully featured custom fan curve with up to 10 points:
@@ -78,7 +76,7 @@ It allows you to control features like the fan curve, power mode, power limits, 
   - Now you can do it using software in your system settings
   - Changing with `Fn+Q` is also possible
   - Depending on your desktop environment, you could automatically switch to quiet mode if you are on battery or performance mode when on AC power (e.g. KDE's Energy Saving settings)
-  - Switch between different fan profiles depending on the power profile (See: [Lenovo Legion Laptop Support Daemon](#lenovo-legion-laptop-support-daemon))
+  - Switch between different fan profiles depending on the power profile (See: [Lenovo Legion Laptop Support Daemon](#lenovo-legion-laptop-support-daemonlegiond))
 - [X] Monitor fan speeds and temperatures (CPU, GPU, IC) using the now available sensors
 - [X] Enable or disable automatic switching to a "Mini Fan Curve" if temperatures are low for a long time
 
@@ -92,21 +90,18 @@ It allows you to control features like the fan curve, power mode, power limits, 
 ## :package: Available Packages
 
 - Debian/Ubuntu:
-  - Official PPA (TAG version): [here](https://github.com/johnfanv2/LenovoLegionLinux/blob/main/package_repo)
-  - Official PPA (GIT[^1] version): [here](https://mrduartept.github.io/LLL-pkg-repo)
+  - Debian repo (for now): [here](https://tracker.debian.org/pkg/lenovolegionlinux)
 - Fedora/RHEL Base Distros:
-    - Official Fedora COPR (TAG version): [here]((https://copr.fedorainfracloud.org/coprs/mrduarte/LenovoLegionLinux/)
+    - Official Fedora COPR: [here](https://copr.fedorainfracloud.org/coprs/mrduarte/LenovoLegionLinux/)
 - Arch Base Distros:
     - [lenovolegionlinux-git](https://aur.archlinux.org/packages/lenovolegionlinux-git)
-    - [lenovolegionlinux-dkms-git](https://aur.archlinux.org/packages/lenovolegionlinux-dkms-git)[^2]
+    - [lenovolegionlinux-dkms-git](https://aur.archlinux.org/packages/lenovolegionlinux-dkms-git)
 - Gentoo Base Distros:
     - [GURU Overlay](https://gitweb.gentoo.org/repo/proj/guru.git)
     - [ebuild](https://gpo.zugaina.org/sys-firmware/lenovolegionlinux)
 - [NixOS](https://search.nixos.org/packages?channel=unstable&from=0&size=50&sort=relevance&type=packages&query=lenovo-legion)
 
 [^1]: Build with latest commit every day at midnight GMT
-
-[^2]: Only need if are not using CachyOS
 
 ## :pushpin: Confirmed Compatible Models
 
@@ -131,6 +126,7 @@ It allows you to control features like the fan curve, power mode, power limits, 
 - Lenovo Legion 5 15ACH6A (BIOS G9CN30WW), all AMD variant: sensors, fan curve (with mini fan curve), power profile
 - Lenovo Legion 5 17ACH6 (BIOS HHCN31WW): sensors, fan curve, power profile
 - Lenovo Legion 7i 16ITHG6 (BIOS H1CN35WW): sensors, fan curve, power profile
+- Lenovo Legion 7 Pro 16ARX8H (BIOS LPCN47WW): sensors, fan curve, power profile
 
 *Note:* Features that are not confirmed probably also work. They were just not tested.
 
@@ -168,7 +164,7 @@ You will need to install the following to download and build it. If there is an 
 
 ```bash
 sudo apt-get update
-sudo apt-get install -y make gcc linux-headers-$(uname -r) build-essential git lm-sensors wget python3-pyqt5 python3-yaml python3-venv python3-pip python3-argcomplete python3-darkdetect
+sudo apt-get install -y make gcc linux-headers-$(uname -r) build-essential git lm-sensors wget python3-pyqt6 python3-yaml python3-venv python3-pip python3-argcomplete python3-darkdetect
 # Install the following for installation with DKMS
 sudo apt-get install dkms openssl mokutil
 ```
@@ -176,7 +172,7 @@ sudo apt-get install dkms openssl mokutil
 **RHEL/CentOS/RockyLinux/Fedora/AlmaLinux**
 
 ```bash
-sudo dnf install -y kernel-headers kernel-devel dmidecode lm_sensors PyQt5 python3-yaml python3-pip python3-argcomplete python3-darkdetect
+sudo dnf install -y kernel-headers kernel-devel dmidecode lm_sensors python3-PyQt6 python3-yaml python3-pip python3-argcomplete python3-darkdetect
 sudo dnf groupinstall "Development Tools"
 sudo dnf group install "C Development Tools and Libraries"
 # Install the following for installation with DKMS
@@ -198,7 +194,7 @@ sudo zypper install dkms openssl mokutil
 **Arch/Manjaro/EndeavourOS**
 
 ```bash
-sudo pacman -S linux-headers base-devel lm_sensors git dmidecode python-pyqt5 python-yaml python-argcomplete python-darkdetect
+sudo pacman -S linux-headers base-devel lm_sensors git dmidecode python-pyqt6 python-yaml python-argcomplete python-darkdetect
 # Install the following for installation with DKMS
 sudo pacman -S dkms openssl mokutil
 ```
@@ -267,6 +263,7 @@ sudo make uninstall
 You must first install the package to with DKMS. See Requirements section.
 
 ```
+sudo mkdir -p /usr/src/LenovoLegionLinux-1.0.0
 sudo cp ./kernel_module/* /usr/src/LenovoLegionLinux-1.0.0 -r
 sudo dkms add -m LenovoLegionLinux -v 1.0.0
 sudo dkms build -m LenovoLegionLinux -v 1.0.0
@@ -353,22 +350,28 @@ EC Chip Version: 2a4
 fan curve current point id: 0 
 fan curve points size: 8 
 Current fan curve in UEFI
-rpm1|rpm2|acceleration|deceleration|cpu_min_temp|cpu_max_temp|gpu_min_temp|gpu_max_temp|ic_min_temp|ic_max_temp
-0 0 2 2 0 48 0 59 0 41
-1700 1900 2 2 45 54 55 59 39 44
-1900 2000 2 2 51 58 55 59 42 50
-2200 2100 2 2 55 62 55 59 46 127
-2300 2400 2 2 59 71 55 59 127 127
-2600 2700 2 2 68 76 55 64 127 127
-2900 3000 2 2 72 81 60 68 127 127
-3500 3500 2 2 78 127 65 127 127 127
+u(speed_of_unit)|speed1[u]|speed2[u]|speed1[pwm]|speed2[pwm]|acceleration|deceleration|cpu_min_temp|cpu_max_temp|gpu_min_temp|gpu_max_temp|ic_min_temp|ic_max_temp
+3        0       0       0       0       3       3       0       50      0       50      0       30
+3        11      11      28      28      3       3       50      55      50      55      30      40
+3        13      13      33      33      3       3       55      60      55      60      40      50
+3        20      20      51      51      3       3       60      65      60      65      50      55
+3        22      22      56      56      3       3       65      70      65      70      55      127
+3        24      24      61      61      3       3       70      75      70      75      127     127
+3        28      28      71      71      2       2       75      80      75      80      127     127
+3        33      33      84      84      2       2       80      88      80      88      127     127
+3        40      40      102     102     2       2       88      90      88      90      127     127
+3        44      44      112     112     2       2       90      127     90      127     127     127
+
 ```
 
 The fan curve is displayed as a table with the following columns:
 
 ```text
-rpm1: speed in rpm for fan1 at this point
-rpm2: speed in rpm for fan1 at this point
+u(speed_of_unit): unit for the speed (1- Percentage, 2-PWM, 3-RPM)
+speed1[u]: speed in rpm divided by 100 for fan1 at this point
+speed2[u]: speed in rpm divided by 100 for fan2 at this point
+speed1[pwm]: speed in pwm (0-255) for fan1 at this point
+speed2[pwm]: speed in pwm (0-255) for fan2 at this point
 acceleration: acceleration time (higher = slower)
 deceleration: deceleration time (higher = slower)
 cpu_min_temp: CPU temperature must go below this before leaving this point
@@ -376,9 +379,10 @@ cpu_max_temp: if CPU temperature is above this value, go to next point
 gpu_min_temp: GPU temp must go below this before leaving this level
 gpu_max_temp: if GPU temperature is above this value, go to next point 
 ic_min_temp: IC temp must go below this before leaving this level
-ic_max_temp: if IC temperature above this value, go to next point 
+ic_max_temp: if IC temperature above this value, go to next point
 
 All temperatures are in degree Celsius.
+127 is the max temperature
 ```
 
 **Note**: This is just a debug output. The fan curve is configured as usual using the standard `hwmon` interface.
@@ -435,14 +439,14 @@ Unexpected output:
 # Get root
 sudo su
 # As root enter
-# 2. point, 1. fan
-echo 1500 > /sys/module/legion_laptop/drivers/platform:legion/PNP0C09:00/hwmon/hwmon*/pwm1_auto_point2_pwm
-# 2. point, 2.fan
-echo 1600 > /sys/module/legion_laptop/drivers/platform:legion/PNP0C09:00/hwmon/hwmon*/pwm2_auto_point2_pwm
-# 3. point, 1. fan
-echo 1700 > /sys/module/legion_laptop/drivers/platform:legion/PNP0C09:00/hwmon/hwmon*/pwm1_auto_point3_pwm
-# 3. point, 2.fan
-echo 1800 > /sys/module/legion_laptop/drivers/platform:legion/PNP0C09:00/hwmon/hwmon*/pwm2_auto_point3_pwm
+# 2. point, 1. fan (around 1500 rpm in pwm)
+echo 38 > /sys/module/legion_laptop/drivers/platform:legion/PNP0C09:00/hwmon/hwmon*/pwm1_auto_point2_pwm
+# 2. point, 2.fan (around 1600 rpm in pwm)
+echo 40 > /sys/module/legion_laptop/drivers/platform:legion/PNP0C09:00/hwmon/hwmon*/pwm2_auto_point2_pwm
+# 3. point, 1. fan (around 1700 rpm in pwm)
+echo 43 > /sys/module/legion_laptop/drivers/platform:legion/PNP0C09:00/hwmon/hwmon*/pwm1_auto_point3_pwm
+# 3. point, 2.fan (around 1800 rpm in pwm)
+echo 45 > /sys/module/legion_laptop/drivers/platform:legion/PNP0C09:00/hwmon/hwmon*/pwm2_auto_point3_pwm
 
 
 # Read the current fancurve and check if changes were made
@@ -455,15 +459,18 @@ Expected:
 - The entries in the fan curve are set to their values. The other values are not relevant (marked with XXXX)
 
 ```
-rpm1|rpm2|acceleration|deceleration|cpu_min_temp|cpu_max_temp|gpu_min_temp|gpu_max_temp|ic_min_temp|ic_max_temp
-XXXX XXXX XXXX XXXX XXXX XXXX XXXX XXXX XXXX XXXX
-1500 1600 XXXX XXXX XXXX XXXX XXXX XXXX XXXX XXXX
-1700 1800 XXXX XXXX XXXX XXXX XXXX XXXX XXXX XXXX
-XXXX XXXX XXXX XXXX XXXX XXXX XXXX XXXX XXXX XXXX
-XXXX XXXX XXXX XXXX XXXX XXXX XXXX XXXX XXXX XXXX
-XXXX XXXX XXXX XXXX XXXX XXXX XXXX XXXX XXXX XXXX
-XXXX XXXX XXXX XXXX XXXX XXXX XXXX XXXX XXXX XXXX
-XXXX XXXX XXXX XXXX XXXX XXXX XXXX XXXX XXXX XXXX
+u(speed_of_unit)|speed1[u]|speed2[u]|speed1[pwm]|speed2[pwm]|acceleration|deceleration|cpu_min_temp|cpu_max_temp|gpu_min_temp|gpu_max_temp|ic_min_temp|ic_max_temp
+XXXX             XXXX      XXXX      XXXX        XXXX        XXXX         XXXX         XXXX         XXXX         XXXX         XXXX         XXXX        XXXX
+XXXX             15        16        38          40          XXXX         XXXX         XXXX         XXXX         XXXX         XXXX         XXXX        XXXX
+XXXX             17        18        43          45          XXXX         XXXX         XXXX         XXXX         XXXX         XXXX         XXXX        XXXX
+XXXX             XXXX      XXXX      XXXX        XXXX        XXXX         XXXX         XXXX         XXXX         XXXX         XXXX         XXXX        XXXX
+XXXX             XXXX      XXXX      XXXX        XXXX        XXXX         XXXX         XXXX         XXXX         XXXX         XXXX         XXXX        XXXX
+XXXX             XXXX      XXXX      XXXX        XXXX        XXXX         XXXX         XXXX         XXXX         XXXX         XXXX         XXXX        XXXX
+XXXX             XXXX      XXXX      XXXX        XXXX        XXXX         XXXX         XXXX         XXXX         XXXX         XXXX         XXXX        XXXX
+XXXX             XXXX      XXXX      XXXX        XXXX        XXXX         XXXX         XXXX         XXXX         XXXX         XXXX         XXXX        XXXX
+XXXX             XXXX      XXXX      XXXX        XXXX        XXXX         XXXX         XXXX         XXXX         XXXX         XXXX         XXXX        XXXX
+XXXX             XXXX      XXXX      XXXX        XXXX        XXXX         XXXX         XXXX         XXXX         XXXX         XXXX         XXXX        XXXX
+
 ```
 
 **If you want to reset your fan curve, just toggle with Ctrl+Q or Fn+Q the power mode or restart and everything is gone.**
@@ -663,9 +670,10 @@ If the laptop stays cool for a longer time, it will enable the "mini fan curve",
 
 With the GUI, the mini fan curve is enabled/disabled by checking/unchecking the box `Minifancurve if cold` and pressing `Apply to HW`.
 
-### Lenovo Legion Laptop Support Daemon
+### Lenovo Legion Laptop Support Daemon(legiond)
 
-The LLL Daemon is only supported in Systemd (if you what to add OpenRC support you can open a Pull Request) to install you need to run the [systemd_install.sh](extra/systemd_install.sh) unside the extra folder.
+The LLL Daemon is supported in Systemd and OpenRC(Experimental).
+If you install LLL manually(not throngh the package manager), you may need to run the [systemd_install.sh](extra/systemd_install.sh) unside the extra folder.
 
 This Daemon allow to chnage automatically bettwen fan profiles set in the gui depending of the power mode and if the laptop is or not plug in:
 These are the profiles avaiable:
@@ -684,30 +692,33 @@ Exemple profiles are [here](extra/service/profiles) can also be set via the gui 
 3 - Set all the profiles
 4 - Go to the `Automation` tab and enable the option `Lenovo Legion Laptop Support Daemon Enable`
 
-This systemd service also have extras features that can be activated by editing [.env](extra/service/.env) located /etc/legion_linux/.env:
+This systemd service also have extras features that can be activated by editing [legiond.ini](extra/service/legiond.ini) located /etc/legion_linux/legiond.ini:
 
-- CPU_CONTROL - activate use of RyzenADJ on AMD or undervolt on Intel to chnage make custom cpu setting for each power mode (pls edit the command inside $() after reading the readme for each project)
-  - CPU_CC_BAT_BP - Custom Cpu setting for custom mode on battery
-  - CPU_CC_AC_BP - Custom Cpu setting for custom mode on charger
-  - CPU_CC_BAT_Q - Custom Cpu setting for quiet mode on battery
-  - CPU_CC_AC_Q - Custom Cpu setting for quiet mode on charger
-  - CPU_CC_BAT_B - Custom Cpu setting for balance mode on battery
-  - CPU_CC_AC_B - Custom Cpu setting for balance mode on charger
-  - CPU_CC_AC_P - Custom Cpu setting for performance mode on charger
-- GPU TDP Control:
-  - TEAM_GREEN=1 - use ```nvidia-smi -pl``` command to chnage the TDP of the GPU (only work on driver 525 and lower)
-  - TEAM_RED=1 - use ```rocm-smi --setpoweroverdrive``` command to chnage the TDP of the GPU
+- cpu_control - activate use of RyzenADJ on AMD or undervolt on Intel to make custom cpu setting for each power mode
+  - bat_bp - Custom Cpu setting for custom mode on battery
+  - ac_bp - Custom Cpu setting for custom mode on charger
+  - bat_q - Custom Cpu setting for quiet mode on battery
+  - ac_q - Custom Cpu setting for quiet mode on charger
+  - bat_b - Custom Cpu setting for balance mode on battery
+  - ac_b - Custom Cpu setting for balance mode on charger
+  - ac_p - Custom Cpu setting for performance mode on charger
+- gpu_control:
+  - nvidia - use ```nvidia-smi -pl``` command to change the TDP of the GPU (only work on driver 525 and lower)
+  - radeon - use ```rocm-smi --setpoweroverdrive``` command to change the TDP of the GPU
 
-    - GPU_TDP_BAT_BP - Custom GPU TDP for custom mode on battery
-    - GPU_TDP_AC_BP - Custom GPU TDP for custom mode on charger
-    - GPU_TDP_BAT_Q - Custom GPU TDP for quiet mode on battery
-    - GPU_TDP_AC_Q - Custom GPU TDP for quiet mode on charger
-    - GPU_TDP_BAT_B - Custom GPU TDP for balance mode on battery
-    - GPU_TDP_AC_B - Custom GPU TDP for balance mode on charger
-    - GPU_TDP_AC_P - Custom GPU TDP for performance mode on charger
+    - tdp_bat_bp - Custom GPU TDP for custom mode on battery
+    - tdp_ac_bp - Custom GPU TDP for custom mode on charger
+    - tdp_bat_q - Custom GPU TDP for quiet mode on battery
+    - tdp_ac_q - Custom GPU TDP for quiet mode on charger
+    - tdp_bat_b - Custom GPU TDP for balance mode on battery
+    - tdp_ac_b - Custom GPU TDP for balance mode on charger
+    - tdp_ac_p - Custom GPU TDP for performance mode on charger
   - Note: The default values in the .env file are from RTX 3070
 
-NOTE: We also have acpi action and event inside the extra folder but are in develoment and testing (use at your own risk).
+NOTE: `legiond.service` depends on `acpid.service` and if you enable `legiond.service`, `acpid.service` should be started automatically.
+If your CPU tweaks often get reset to default, enable `legiond-cpuset.timer` to override it.
+
+See [README.org](extra/service/legiond/README.org)
 
 ### Lock and Unlock the Fan Controller and Fan Speed
 
@@ -767,7 +778,7 @@ Thank you for your work on Windows tools that were the basis of the Linux suppor
   and creating the Windows tool [LegionFanControl](https://github.com/0x1F9F1/LegionFanControl)
 * [ViRb3](https://github.com/ViRb3), for creating [Lenovo Controller](https://github.com/ViRb3/LenovoController), which was used as a base
   for [LenovoLegionToolkit]
-* [Luke Cama](https://www.legionfancontrol.com/), for his closed-source tool [LegionFanControl](https://www.legionfancontrol.com/) that controls older laptops with directly with the embedded controller
+* [Luke Cama](https://www.legionfancontrol.com/), for his closed-source tool [LegionFanControl](https://www.legionfancontrol.com/) that controls older laptops by directly interacting with the embedded controller
 * David Woodhouse, for his work on the ideapad Linux driver [ideapad-laptop](https://github.com/torvalds/linux/blob/0ec5a38bf8499f403f81cb81a0e3a60887d1993c/drivers/platform/x86/ideapad-laptop.c), which was a heavy inspiration for this Linux driver
 
 ### Contributors to Lenovo Legion Laptop Support
@@ -779,6 +790,11 @@ Thank you for your contribution for the Linux support:
 * [XenHat](https://github.com/XenHat), fix README
 
 Also please tell me if it works or does not work on your laptop.
+
+### Tools that are based on LenovoLegionLinux
+#### Plasma Vantage
+PlasmaVantage is a Plasma Widget for KDE. It is an alternative GUI for the LenovoLegionLinux kernel module. It is availabe in the [KDE stroe](https://store.kde.org/p/2150610/) or with source [here](https://gitlab.com/Scias/plasmavantage).
+
 
 ## :interrobang: Frequency Asked Questions
 
